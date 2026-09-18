@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vitrine — sneaker showroom</title>
+<meta name="description" content="A by-appointment sneaker showroom. Twelve pairs on view at a time, each catalogued, authenticated and displayed on its own plinth.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..800&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===========================================================
+     The sneaker is drawn once here as an SVG <symbol>, then
+     placed with <use> wherever it's needed. Colours come from
+     CSS custom properties (--c-upper, --c-panel …), so one
+     drawing serves every colourway on the page.
+
+     SWAPPING IN PHOTOGRAPHY
+     Replace any <svg class="sneaker-svg"><use …></svg> block with
+        <img class="sneaker-svg" src="img/your-shot.png" alt="…">
+     Use PNGs with transparent backgrounds so the plinth shadow
+     still reads. The colourway switcher only works on the SVG.
+     =========================================================== -->
+<svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="sheen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fff" stop-opacity=".42"/>
+      <stop offset="55%" stop-color="#fff" stop-opacity=".04"/>
+      <stop offset="100%" stop-color="#000" stop-opacity=".14"/>
+    </linearGradient>
+    <linearGradient id="soleShade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fff" stop-opacity=".22"/>
+      <stop offset="100%" stop-color="#000" stop-opacity=".25"/>
+    </linearGradient>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <style>
+      .p{transition:fill .5s cubic-bezier(.22,.9,.28,1)}
+      .s{transition:stroke .5s cubic-bezier(.22,.9,.28,1)}
+    </style>
+  </defs>
+
+  <symbol id="sneaker" viewBox="0 0 420 230">
+    <ellipse cx="216" cy="204" rx="168" ry="12" fill="rgba(20,20,26,.16)"/>
+
+    <!-- outsole -->
+    <path class="p" fill="var(--c-sole)"
+      d="M34,166 L396,160 Q406,176 392,186 Q385,190 372,190 L50,190 Q31,190 29,179 Q28,170 34,166 Z"/>
+    <!-- midsole -->
+    <path class="p" fill="var(--c-mid)"
+      d="M30,170 Q25,149 46,143 Q158,135 250,129 Q350,122 390,110 L398,164 Z"/>
+    <path fill="url(#soleShade)" opacity=".5"
+      d="M30,170 Q25,149 46,143 Q158,135 250,129 Q350,122 390,110 L398,164 Z"/>
+
+    <!-- upper -->
+    <path class="p" fill="var(--c-upper)"
+      d="M44,143 Q38,120 66,108 Q120,92 175,88 L228,84 L262,58 Q272,48 296,48 L330,48
+         Q356,50 364,74 L386,116 Q392,128 372,130 Q250,134 150,140 L52,146 Q44,147 44,143 Z"/>
+    <!-- toe cap -->
+    <path class="p" fill="var(--c-toe)"
+      d="M44,143 Q38,120 66,108 Q90,98 112,95 L122,139 L52,146 Q44,147 44,143 Z"/>
+    <!-- side blade -->
+    <path class="p" fill="var(--c-panel)"
+      d="M116,136 L268,86 L288,104 L134,142 Z"/>
+    <!-- heel counter -->
+    <path class="p" fill="var(--c-panel)"
+      d="M340,58 Q362,64 368,88 L384,112 Q390,126 366,127 L342,128 Z"/>
+    <!-- collar rim -->
+    <path class="p" fill="var(--c-upper-2)"
+      d="M262,58 Q300,72 358,72 L366,80 Q356,50 330,48 L296,48 Q272,48 262,58 Z"/>
+    <!-- tongue -->
+    <path class="p" fill="var(--c-upper-2)"
+      d="M250,66 Q260,50 284,50 L294,62 Q268,66 256,78 Z"/>
+    <!-- heel tab -->
+    <rect class="p" x="350" y="40" width="20" height="14" rx="4" fill="var(--c-panel)"/>
+
+    <!-- laces -->
+    <g class="s" stroke="var(--c-lace)" stroke-width="5" stroke-linecap="round" fill="none">
+      <path d="M176,95 L197,82"/><path d="M196,92 L217,77"/>
+      <path d="M216,88 L237,71"/><path d="M236,84 L255,67"/>
+    </g>
+    <g class="p" fill="var(--c-sole)" opacity=".55">
+      <circle cx="174" cy="97" r="2.6"/><circle cx="194" cy="94" r="2.6"/>
+      <circle cx="214" cy="90" r="2.6"/><circle cx="234" cy="86" r="2.6"/>
+    </g>
+
+    <!-- stitching -->
+    <path class="s" d="M50,141 Q160,133 252,127 Q348,120 388,109" fill="none"
+      stroke="var(--c-sole)" stroke-opacity=".38" stroke-width="1.5" stroke-dasharray="5 6"/>
+
+    <!-- light + grain, for depth -->
+    <path fill="url(#sheen)" opacity=".8"
+      d="M44,143 Q38,120 66,108 Q120,92 175,88 L228,84 L262,58 Q272,48 296,48 L330,48
+         Q356,50 364,74 L386,116 Q392,128 372,130 Q250,134 150,140 L52,146 Q44,147 44,143 Z"/>
+    <rect x="0" y="0" width="420" height="230" filter="url(#grain)" opacity=".10"
+      style="mix-blend-mode:multiply"/>
+  </symbol>
+</svg>
+
+<header class="topbar">
+  <div class="shell">
+    <a class="mark" href="#top">VITRIN<em>E</em></a>
+    <nav class="nav" aria-label="Main">
+      <a href="#onview">On view</a>
+      <a href="#configure">Colourways</a>
+      <a href="#provenance">Authentication</a>
+      <a href="#visit">Visit</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <div class="hero">
+    <div class="shell">
+      <div>
+        <h1>Twelve pairs. <em>One room.</em></h1>
+        <p class="lede">A showroom, not a shop floor. Each pair sits on its own plinth under its own light, catalogued and authenticated, and stays on view until someone takes it home.</p>
+        <div class="hero-actions">
+          <a class="btn btn-solid" href="#onview">See what's on view</a>
+          <a class="btn btn-line" href="#visit">Book an hour</a>
+        </div>
+      </div>
+
+      <figure class="vitrine">
+        <div class="beam" aria-hidden="true"></div>
+        <div class="case">
+          <svg class="sneaker-svg sneaker-hero cw-bone" viewBox="0 0 420 230"
+               role="img" aria-label="Meridian 07 sneaker in bone and ultramarine on a lit plinth">
+            <use href="#sneaker"/>
+          </svg>
+        </div>
+        <div class="plinth"></div>
+        <figcaption class="wall-label">
+          <span class="cat-no">ACC. 04 · PLINTH 1</span>
+          <b>Meridian 07 — Bone / Ultramarine</b>
+          <span>Deadstock, 2003. One of 240 pairs. On view until 30 September.</span>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <!-- ============ ON VIEW ============ -->
+  <section id="onview">
+    <div class="shell">
+      <div class="sec-head">
+        <h2>On view this month</h2>
+        <p>Four of the twelve. Hover a plinth to raise the light. Everything here is in hand — nothing is listed before we have it.</p>
+      </div>
+
+      <ul class="objects">
+        <li class="object cw-bone">
+          <div class="stage">
+            <svg class="sneaker-svg" viewBox="0 0 420 230" role="img" aria-label="Meridian 07 in bone and ultramarine"><use href="#sneaker"/></svg>
+          </div>
+          <span class="cat-no">ACC. 04</span>
+          <h3>Meridian 07 <span class="tag tag-view">ON VIEW</span></h3>
+          <p class="year">Bone / Ultramarine · 2003</p>
+          <dl class="spec">
+            <dt>Condition</dt><dd>Deadstock, unworn</dd>
+            <dt>Size</dt><dd>UK 9</dd>
+            <dt>Edition</dt><dd>240 pairs</dd>
+            <dt>Box</dt><dd>Original, lid intact</dd>
+          </dl>
+          <b class="price">₹4,20,000</b>
+        </li>
+
+        <li class="object cw-obsidian">
+          <div class="stage">
+            <svg class="sneaker-svg" viewBox="0 0 420 230" role="img" aria-label="Kurosaki Low in obsidian and steel"><use href="#sneaker"/></svg>
+          </div>
+          <span class="cat-no">ACC. 09</span>
+          <h3>Kurosaki Low <span class="tag tag-sold">RESERVED</span></h3>
+          <p class="year">Obsidian / Steel · 1998</p>
+          <dl class="spec">
+            <dt>Condition</dt><dd>Worn twice</dd>
+            <dt>Size</dt><dd>UK 10</dd>
+            <dt>Edition</dt><dd>Friends and family</dd>
+            <dt>Box</dt><dd>Replacement</dd>
+          </dl>
+          <b class="price">₹7,85,000</b>
+        </li>
+
+        <li class="object cw-court">
+          <div class="stage">
+            <svg class="sneaker-svg" viewBox="0 0 420 230" role="img" aria-label="Court Sovereign in chalk and green"><use href="#sneaker"/></svg>
+          </div>
+          <span class="cat-no">ACC. 11</span>
+          <h3>Court Sovereign <span class="tag tag-view">ON VIEW</span></h3>
+          <p class="year">Chalk / Court Green · 1985</p>
+          <dl class="spec">
+            <dt>Condition</dt><dd>Restored sole</dd>
+            <dt>Size</dt><dd>UK 8.5</dd>
+            <dt>Edition</dt><dd>Retail run</dd>
+            <dt>Box</dt><dd>None</dd>
+          </dl>
+          <b class="price">₹1,60,000</b>
+        </li>
+
+        <li class="object cw-signal">
+          <div class="stage">
+            <svg class="sneaker-svg" viewBox="0 0 420 230" role="img" aria-label="Flare Runner in signal red"><use href="#sneaker"/></svg>
+          </div>
+          <span class="cat-no">ACC. 12</span>
+          <h3>Flare Runner <span class="tag tag-view">ON VIEW</span></h3>
+          <p class="year">Signal / Black · 2011</p>
+          <dl class="spec">
+            <dt>Condition</dt><dd>Deadstock, yellowed</dd>
+            <dt>Size</dt><dd>UK 11</dd>
+            <dt>Edition</dt><dd>1,000 pairs</dd>
+            <dt>Box</dt><dd>Original</dd>
+          </dl>
+          <b class="price">₹95,000</b>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ CONFIGURATOR ============ -->
+  <section id="configure" class="configure">
+    <div class="shell">
+      <input type="radio" name="cw" id="c1" checked>
+      <input type="radio" name="cw" id="c2">
+      <input type="radio" name="cw" id="c3">
+      <input type="radio" name="cw" id="c4">
+      <input type="radio" name="cw" id="c5">
+
+      <div class="cfg">
+        <div class="cfg-stage">
+          <svg class="sneaker-svg" viewBox="0 0 420 230" role="img" aria-label="Meridian 07 shown in the selected colourway"><use href="#sneaker"/></svg>
+        </div>
+
+        <div>
+          <h2>Five colourways of the Meridian 07</h2>
+          <p>We hold the same silhouette in five finishes. Pick one to see it on the stand — the pair you choose is the pair we bring out of the back when you visit.</p>
+          <div class="swatches" role="group" aria-label="Choose a colourway">
+            <label class="sw sw-bone"     for="c1" title="Bone / Ultramarine"></label>
+            <label class="sw sw-obsidian" for="c2" title="Obsidian / Steel"></label>
+            <label class="sw sw-court"    for="c3" title="Chalk / Court Green"></label>
+            <label class="sw sw-signal"   for="c4" title="Signal / Black"></label>
+            <label class="sw sw-pewter"   for="c5" title="Pewter / Chalk"></label>
+          </div>
+          <p class="cw-name">
+            <span class="n1">Bone / Ultramarine</span>
+            <span class="n2">Obsidian / Steel</span>
+            <span class="n3">Chalk / Court Green</span>
+            <span class="n4">Signal / Black</span>
+            <span class="n5">Pewter / Chalk</span>
+          </p>
+          <a class="btn btn-solid" href="#visit">Hold this pair for a viewing</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ AUTHENTICATION ============ -->
+  <section id="provenance">
+    <div class="shell">
+      <div class="sec-head">
+        <h2>How a pair gets on a plinth</h2>
+        <p>Three checks, every time. If a pair fails one of them, it goes back to the seller.</p>
+      </div>
+      <ul class="prov">
+        <li>
+          <h3>We buy it outright</h3>
+          <p>Nothing here is on consignment, so we have no reason to talk up a pair we are not sure about. If it is on the floor, our own money is already in it.</p>
+        </li>
+        <li>
+          <h3>Two authenticators, separately</h3>
+          <p>Stitch count, sole date stamp, box label, glue lines. Two people check the same pair without seeing each other's notes, and both have to agree.</p>
+        </li>
+        <li>
+          <h3>The file comes with it</h3>
+          <p>You leave with the photographs, the seller history and the condition report. Resell it in ten years and that file is worth real money to you.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ VISIT ============ -->
+  <section id="visit" class="visit">
+    <div class="shell">
+      <div>
+        <h2>One hour, one visitor at a time.</h2>
+        <p>The room holds twelve plinths and one person. Book an hour, tell us which pairs you want out of the case, and we will have them unboxed and under the light when you arrive.</p>
+        <p class="visit-lead-out">Trying on is expected. We keep liners and a bench by the door.</p>
+        <a class="btn btn-solid" href="mailto:room@vitrine.studio?subject=Viewing%20request">Request a viewing</a>
+      </div>
+
+      <dl class="hours">
+        <div><dt>Tuesday – Friday</dt><dd>12:00 – 20:00</dd></div>
+        <div><dt>Saturday</dt><dd>10:00 – 18:00</dd></div>
+        <div><dt>Sunday &amp; Monday</dt><dd>Closed</dd></div>
+        <div><dt>Address</dt><dd>2nd floor, 41 Alkapuri, Vadodara</dd></div>
+        <div><dt>Email</dt><dd><a href="mailto:room@vitrine.studio">room@vitrine.studio</a></dd></div>
+      </dl>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="shell">
+    <div>Vitrine — sneaker showroom, Vadodara</div>
+    <div>By appointment since 2017</div>
+  </div>
+</footer>
+
+</body>
+</html>
